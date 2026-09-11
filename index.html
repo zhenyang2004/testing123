@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+</head>
+
+<body>
+    <section class="birthday-screen">
+        <div class="content">
+            <p class="small-title">Make a wish ✨</p>
+
+            <div class="cake-area" id="cakeArea">
+
+                <div class="candle" onclick="blowCandle()">
+                    <div class="flame" id="flame"></div>
+                    <div class="smoke" id="smoke"></div>
+                </div>
+
+                <div class="icing"></div>
+                <div class="cake-top"></div>
+                <div class="cake-bottom"></div>
+                <div class="plate"></div>
+            </div>
+
+            <p class="instruction" id="instruction">
+                Tap the candle ~
+            </p>
+        </div>
+    </section>
+
+    <div class="birthday-message" id="birthdayMessage">
+        <div class="message-content">
+            <h1>
+                Happy Birthday🎂
+            </h1>
+
+            <span class="friend-name">
+                稼恩
+            </span>
+        </div>
+    </div>
+
+    <audio id="birthdayMusic" loop>
+        <source src="the_mountain-happy-birthday-576570.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let candleOff = false;
+
+
+        function blowCandle() {
+
+            if (candleOff) {
+                return;
+            }
+
+            candleOff = true;
+
+
+            const music =
+                document.getElementById(
+                    "birthdayMusic"
+                );
+
+            music.play().catch(error => {
+
+                console.log(
+                    "Music could not play:",
+                    error
+                );
+
+            });
+
+
+            /* =====================
+               CANDLE
+            ===================== */
+
+            const flame =
+                document.getElementById(
+                    "flame"
+                );
+
+            const smoke =
+                document.getElementById(
+                    "smoke"
+                );
+
+            const cake =
+                document.getElementById(
+                    "cakeArea"
+                );
+
+            const instruction =
+                document.getElementById(
+                    "instruction"
+                );
+
+
+            /* Blow out flame */
+
+            flame.classList.add("off");
+
+
+            /* Smoke */
+
+            setTimeout(() => {
+
+                smoke.classList.add("show");
+
+            }, 200);
+
+
+            /* Hide instruction */
+
+            instruction.style.opacity = "0";
+
+
+            /* Cake bounce */
+
+            cake.classList.add("bounce");
+
+
+            /* Confetti */
+
+            setTimeout(() => {
+
+                createConfetti();
+
+            }, 300);
+
+
+            /* =====================
+               HAPPY BIRTHDAY
+            ===================== */
+
+            setTimeout(() => {
+
+                document
+                    .getElementById(
+                        "birthdayMessage"
+                    )
+                    .classList
+                    .add("show");
+
+            }, 1100);
+
+        }
+
+
+        function createConfetti() {
+
+            const colors = [
+
+                "#ff4f81",
+                "#7aa8ff",
+                "#ffd166",
+                "#9de2c6",
+                "#bc8cff",
+                "#ff9f1c"
+
+            ];
+
+
+            for (
+                let i = 0;
+                i < 180;
+                i++
+            ) {
+
+                const confetti =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                confetti.classList.add(
+                    "confetti"
+                );
+
+
+                confetti.style.left =
+                    Math.random()
+                    * 100
+                    + "vw";
+
+
+                confetti.style.background =
+                    colors[
+                        Math.floor(
+                            Math.random()
+                            * colors.length
+                        )
+                    ];
+
+
+                confetti.style.animationDuration =
+                    (
+                        Math.random()
+                        * 3
+                        + 2
+                    )
+                    + "s";
+
+
+                confetti.style.animationDelay =
+                    (
+                        Math.random()
+                        * 0.7
+                    )
+                    + "s";
+
+
+                confetti.style.opacity =
+                    Math.random()
+                    * 0.6
+                    + 0.4;
+
+
+                document
+                    .body
+                    .appendChild(
+                        confetti
+                    );
+
+
+                setTimeout(() => {
+
+                    confetti.remove();
+
+                }, 6000);
+
+            }
+
+        }
+    </script>
+</body>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+
+        background: linear-gradient(
+            135deg,
+            #fff0f5,
+            #f2f4ff,
+            #fff8ec
+        );
+    }
+
+    /* =========================
+        MAIN SCREEN
+    ========================= */
+
+    .birthday-screen {
+        width: 100%;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+        padding: 20px;
+    }
+
+    .content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .small-title {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+    }
+
+    /* =========================
+        CAKE
+    ========================= */
+
+    .cake-area {
+        width: 300px;
+        height: 330px;
+        position: relative;
+        margin: auto;
+    }
+
+    /* Candle */
+
+    .candle {
+        position: absolute;
+
+        width: 18px;
+        height: 70px;
+
+        left: 50%;
+        top: 40px;
+
+        transform: translateX(-50%);
+
+        background:
+            repeating-linear-gradient(
+                45deg,
+                #ff5f8f,
+                #ff5f8f 7px,
+                #ffffff 7px,
+                #ffffff 14px
+            );
+
+        border-radius: 5px;
+        cursor: pointer;
+
+        z-index: 20;
+    }
+
+    /* Flame */
+
+    .flame {
+        position: absolute;
+
+        width: 25px;
+        height: 35px;
+
+        left: 50%;
+        top: -35px;
+
+        transform:
+            translateX(-50%)
+            rotate(45deg);
+
+        background: #ffb703;
+
+        border-radius: 50%;
+
+        box-shadow:
+            0 0 15px #ffb703,
+            0 0 30px rgba(255, 183, 3, 0.7);
+
+        animation: flicker 0.5s infinite alternate;
+
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s ease;
+    }
+
+    .flame.off {
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            rotate(45deg)
+            scale(0);
+    }
+
+    @keyframes flicker {
+        from {
+            transform:
+                translateX(-50%)
+                rotate(42deg)
+                scale(1);
+        }
+
+        to {
+            transform:
+                translateX(-50%)
+                rotate(48deg)
+                scale(0.88);
+        }
+    }
+
+    /* Smoke */
+
+    .smoke {
+        position: absolute;
+
+        left: 50%;
+        top: -40px;
+
+        width: 8px;
+        height: 8px;
+
+        border-radius: 50%;
+
+        background: rgba(130, 130, 130, 0.6);
+
+        opacity: 0;
+
+        pointer-events: none;
+    }
+
+    .smoke.show {
+        animation: smokeUp 2s ease forwards;
+    }
+
+    @keyframes smokeUp {
+        0% {
+            opacity: 0.7;
+            transform:
+                translate(-50%, 0)
+                scale(1);
+        }
+
+        100% {
+            opacity: 0;
+            transform:
+                translate(-50%, -80px)
+                scale(4);
+        }
+    }
+
+    /* Icing */
+
+    .icing {
+        position: absolute;
+
+        width: 210px;
+        height: 28px;
+
+        left: 50%;
+        top: 105px;
+
+        transform: translateX(-50%);
+
+        background: white;
+
+        border-radius: 30px;
+
+        z-index: 6;
+    }
+
+    /* Cake top */
+
+    .cake-top {
+        position: absolute;
+
+        width: 210px;
+        height: 80px;
+
+        left: 50%;
+        top: 110px;
+
+        transform: translateX(-50%);
+
+        background: #ff85a2;
+
+        border-radius: 22px 22px 8px 8px;
+
+        z-index: 5;
+    }
+
+    /* Cake bottom */
+
+    .cake-bottom {
+        position: absolute;
+
+        width: 250px;
+        height: 100px;
+
+        left: 50%;
+        top: 180px;
+
+        transform: translateX(-50%);
+
+        background: #ffc2d1;
+
+        border-radius: 8px 8px 22px 22px;
+
+        z-index: 4;
+    }
+
+    /* Plate */
+
+    .plate {
+        position: absolute;
+
+        width: 290px;
+        height: 28px;
+
+        left: 50%;
+        top: 270px;
+
+        transform: translateX(-50%);
+
+        background: #dce7ff;
+
+        border-radius: 50%;
+
+        z-index: 2;
+    }
+
+    /* Cake animation */
+
+    .cake-area.bounce {
+        animation: cakeBounce 0.65s ease;
+    }
+
+    @keyframes cakeBounce {
+        0% {
+            transform: scale(1);
+        }
+
+        45% {
+            transform: scale(1.08);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* =========================
+        INSTRUCTION
+    ========================= */
+
+    .instruction {
+        margin-top: -10px;
+
+        color: #777;
+
+        animation: pulse 1.6s infinite;
+
+        transition: opacity 0.5s ease;
+    }
+
+    @keyframes pulse {
+        0%, 100% {
+            opacity: 0.5;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+
+    /* =========================
+        HAPPY BIRTHDAY
+    ========================= */
+
+    .birthday-message {
+        position: fixed;
+
+        inset: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 25px;
+
+        background: rgba(255, 255, 255, 0.68);
+
+        backdrop-filter: blur(7px);
+
+        opacity: 0;
+        visibility: hidden;
+
+        z-index: 100;
+
+        transition:
+            opacity 0.8s ease,
+            visibility 0.8s ease;
+    }
+
+    .birthday-message.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .message-content {
+        text-align: center;
+
+        opacity: 0;
+
+        transform: scale(0.6);
+    }
+
+    .birthday-message.show .message-content {
+        animation: messagePop 1s ease forwards;
+    }
+
+    @keyframes messagePop {
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .message-content h1 {
+        font-size: clamp(3rem, 12vw, 7rem);
+
+        line-height: 0.95;
+
+        color: #ff4f81;
+
+        margin-bottom: 30px;
+    }
+
+    .friend-name {
+        display: block;
+
+        color: #333;
+
+        font-size: clamp(2rem, 8vw, 4rem);
+
+        margin-bottom: 25px;
+    }
+
+    .message-content p {
+        max-width: 550px;
+
+        margin: auto;
+
+        font-size: 1.05rem;
+
+        line-height: 1.8;
+
+        color: #666;
+    }
+
+    /* =========================
+        CONFETTI
+    ========================= */
+
+    .confetti {
+        position: fixed;
+
+        top: -20px;
+
+        width: 10px;
+        height: 16px;
+
+        z-index: 999;
+
+        animation: confettiFall linear forwards;
+    }
+
+    @keyframes confettiFall {
+        to {
+            transform:
+                translateY(110vh)
+                rotate(900deg);
+        }
+    }
+
+    /* =========================
+        MOBILE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+        .cake-area {
+            transform: scale(0.9);
+        }
+
+        .small-title {
+            font-size: 1rem;
+        }
+    }
+</style>
+</html>
