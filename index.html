@@ -33,8 +33,9 @@
     <div class="birthday-message" id="birthdayMessage">
         <div class="message-content">
             <h1>
-                祝你生日快乐 ~~ 
-                哈哈哈哈哈哈
+                祝生日快乐 ~~ 
+                <br>
+                <span class="small-text">哈哈哈哈哈哈 😜</span>
             </h1>
 
             <span class="friend-name">
@@ -237,6 +238,10 @@
 
         }
     </script>
+
+    <footer class="footer">
+        © zyang 版权所有.
+    </footer>
 </body>
 
 <style>
@@ -645,6 +650,21 @@
         z-index: 999;
 
         animation: confettiFall linear forwards;
+    }
+
+    .small-text {
+        font-size: 0.5em;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 12px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #999;
+        z-index: 20;
     }
 
     @keyframes confettiFall {
